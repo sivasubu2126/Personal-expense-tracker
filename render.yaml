@@ -1,0 +1,51 @@
+# Render Blueprint Configuration for SpendWise Backend
+# Connect your repo to Render and set the Root Directory to "backend"
+
+services:
+  - type: web
+    name: spendwise-api
+    runtime: python
+    region: oregon
+    plan: free
+    rootDir: backend
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: APP_NAME
+        value: "SpendWise API"
+      - key: APP_ENV
+        value: "production"
+      - key: DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: "INFO"
+      - key: DATABASE_URL
+        sync: false  # Set manually in Render dashboard with your Aiven MySQL URL
+      - key: DATABASE_SSL_REQUIRED
+        value: "true"
+      - key: DATABASE_CA_CERT
+        value: ""  # Leave empty to use SSL without cert verification, or set path
+      - key: DB_POOL_SIZE
+        value: "5"
+      - key: DB_MAX_OVERFLOW
+        value: "10"
+      - key: JWT_SECRET_KEY
+        generateValue: true  # Render generates a secure random value
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "15"
+      - key: REFRESH_TOKEN_EXPIRE_DAYS
+        value: "30"
+      - key: FRONTEND_ORIGIN
+        value: "https://your-app.vercel.app"  # Update with your Vercel URL
+      - key: CORS_ORIGINS
+        value: "https://your-app.vercel.app"  # Update with your Vercel URL
+      - key: ENABLE_ANALYTICS
+        value: "true"
+      - key: ENABLE_BACKUP_IMPORT
+        value: "true"
+      - key: MAX_TRANSACTIONS_PER_USER
+        value: "10000"

@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Quicksand", sans-serif;
+  --font-heading: "Caveat", cursive;
+  --font-mono: "Fira Code", monospace;
+
+  /* Dark Mode (default) */
+  --color-background: #0F172A;
+  --color-foreground: #F1F5F9;
+  --color-card: #1E293B;
+  --color-card-foreground: #F1F5F9;
+  --color-popover: #1E293B;
+  --color-popover-foreground: #F1F5F9;
+  --color-primary: #3B82F6;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #1E293B;
+  --color-secondary-foreground: #CBD5E1;
+  --color-accent: #10B981;
+  --color-accent-foreground: #FFFFFF;
+  --color-muted: #1E293B;
+  --color-muted-foreground: #94A3B8;
+  --color-border: rgba(148, 163, 184, 0.12);
+  --color-input: rgba(148, 163, 184, 0.12);
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+  --color-ring: #3B82F6;
+  --color-chart-1: #3B82F6;
+  --color-chart-2: #10B981;
+  --color-chart-3: #F59E0B;
+  --color-chart-4: #EF4444;
+  --color-chart-5: #8B5CF6;
+
+  --color-sidebar: #0B1120;
+  --color-sidebar-foreground: #CBD5E1;
+  --color-sidebar-border: rgba(148, 163, 184, 0.08);
+  --color-sidebar-active: rgba(59, 130, 246, 0.15);
+  --color-sidebar-active-foreground: #3B82F6;
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+}
+
+/* Light Mode Overrides */
+:root:not(.dark) {
+  --color-background: #F8FAFC;
+  --color-foreground: #0F172A;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #0F172A;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #0F172A;
+  --color-primary: #2563EB;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F1F5F9;
+  --color-secondary-foreground: #334155;
+  --color-accent: #059669;
+  --color-accent-foreground: #FFFFFF;
+  --color-muted: #F1F5F9;
+  --color-muted-foreground: #64748B;
+  --color-border: rgba(15, 23, 42, 0.08);
+  --color-input: rgba(15, 23, 42, 0.08);
+  --color-destructive: #DC2626;
+  --color-destructive-foreground: #FFFFFF;
+  --color-ring: #2563EB;
+
+  --color-sidebar: #F1F5F9;
+  --color-sidebar-foreground: #334155;
+  --color-sidebar-border: rgba(15, 23, 42, 0.06);
+  --color-sidebar-active: rgba(37, 99, 235, 0.1);
+  --color-sidebar-active-foreground: #2563EB;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: "Quicksand", sans-serif;
+  }
+  h1, h2, h3 {
+    font-family: "Caveat", cursive;
+  }
+}
+
+/* Custom scrollbar for the sidebar */
+.sidebar-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.15);
+  border-radius: 100px;
+}
+
+/* Glow animation keyframes */
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+.glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+/* Stagger fade-in for lists */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+/* Number count-up shimmer */
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to { background-position: 200% center; }
+}

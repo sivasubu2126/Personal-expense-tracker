@@ -1,0 +1,115 @@
+# ==================================
+# Secrets & Environment Variables
+# ==================================
+.env
+.env.*
+!.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# ==================================
+# Database & Local Storage
+# ==================================
+mysql-data/
+*.sqlite3
+*.db
+*.sqlite
+
+# ==================================
+# SSL Certificates (environment-specific)
+# ==================================
+backend/certs/*.pem
+backend/certs/*.crt
+backend/certs/*.key
+!backend/certs/.gitkeep
+
+# ==================================
+# Node.js / Frontend
+# ==================================
+node_modules/
+dist/
+dist-ssr/
+build/
+.pnp
+.pnp.js
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.eslintcache
+
+# ==================================
+# Python / Backend
+# ==================================
+__pycache__/
+*.py[cod]
+*$py.class
+backend/.venv/
+.venv/
+venv/
+ENV/
+env/
+.pytest_cache/
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.egg-info/
+.installed.cfg
+*.egg
+celerybeat-schedule
+
+# ==================================
+# OS & Editor Files
+# ==================================
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ==================================
+# Artifacts & Archives
+# ==================================
+*.zip
+*.tar.gz
+*.rar
+*.msi
+
+# ==================================
+# MariaDB / MySQL Installer (Local Only)
+# ==================================
+mariadb/
+
+# ==================================
+# Test & Verification Artifacts
+# ==================================
+verification_screenshots/
+browser_audit_results.json
+run_browser_verification.cjs
+*.lighthouse.json
+
+# ==================================
+# IDE / Editor Specific
+# ==================================
+*.swp
+*.swo
+*~
