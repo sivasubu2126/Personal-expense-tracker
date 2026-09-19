@@ -1,4 +1,5 @@
 import logging
+from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,7 +10,12 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from fastapi.exceptions import RequestValidationError
 
 from app.core.config import settings
-from app.db.database import get_db
+from app.db.database import get_db, engine
+from app.db.models.base import Base
+
+# Import all models so Base.metadata knows about them
+from app.db.models.user import User, RefreshToken  # noqa: F401
+from app.db.models.finance import Transaction, Budget  # noqa: F401
 
 # Configure logging
 logging.basicConfig(
@@ -17,6 +23,21 @@ logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger(__name__)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Create database tables on startup if they don't exist."""
+    logger.info("Starting up — ensuring database tables exist...")
+    try:
+        async with engine.begin() as conn:
+            await conn.run_sync(Base.metadata.create_all)
+        logger.info("Database tables ready.")
+    except Exception as e:
+        logger.error("Failed to create database tables: %s", str(e), exc_info=True)
+    yield
+    logger.info("Shutting down...")
+
 
 # Conditionally disable docs in production
 docs_kwargs = {}
@@ -27,6 +48,7 @@ app = FastAPI(
     title=settings.app_name,
     description="Backend API for SpendWise Personal Expense Tracker",
     version="1.0.0",
+    lifespan=lifespan,
     **docs_kwargs,
 )
 
