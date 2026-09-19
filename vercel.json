@@ -39,7 +39,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://your-backend.onrender.com/api/$1"
+      "destination": "https://personal-expense-tracker-m08o.onrender.com/api/$1"
     },
     {
       "source": "/(.*)",
